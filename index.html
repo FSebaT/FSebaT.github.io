@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualización de Datos del Sensor DHT11</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- Importamos jQuery -->
+</head>
+<body>
+    <h1>Visualización de Datos del Sensor DHT11</h1>
+    <div id="datos"></div> <!-- Aquí se mostrarán los datos recibidos -->
+    
+    <script>
+        $(document).ready(function(){
+            // Función para cargar los datos del servidor cuando se carga la página
+            function cargarDatos() {
+                $.ajax({
+                    url: "https://FSebaTgithub.io/FSebaT/datos.php", // URL del script PHP que proporciona los datos del sensor
+                    type: "GET",
+                    success: function(response) {
+                        // Mostrar los datos recibidos en el div con id="datos"
+                        $("#datos").html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error al cargar los datos: " + error);
+                    }
+                });
+            }
+
+            // Cargar los datos al cargar la página por primera vez
+            cargarDatos();
+
+            // Actualizar los datos cada 5 segundos
+            setInterval(cargarDatos, 5000); // 5000 milisegundos = 5 segundos
+        });
+    </script>
+</body>
+</html>
