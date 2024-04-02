@@ -1,18 +1,16 @@
 <?php
-// Recibe los datos del sensor DHT11 enviados por el ESP8266
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Lee los datos del sensor
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Recibe los datos enviados desde el ESP8266
     $temperatura = $_POST["temperatura"];
     $humedad = $_POST["humedad"];
 
-    // Procesa los datos según sea necesario
-    // En este ejemplo, simplemente los mostramos en un formato legible
-    $mensaje = "Temperatura: $temperatura °C, Humedad: $humedad %";
-
-    // Envía el mensaje como respuesta al ESP8266
-    echo $mensaje;
+    // Procesa los datos si es necesario (por ejemplo, guardarlos en una base de datos)
+    
+    // Devuelve una respuesta indicando que los datos fueron recibidos correctamente
+    echo "Datos recibidos: Temperatura = $temperatura °C, Humedad = $humedad %";
 } else {
-    // Si no se reciben datos POST, muestra un mensaje de error
-    echo "No se han recibido datos del sensor.";
+    // Si no se reciben datos mediante POST, devuelve un mensaje de error
+    http_response_code(405); // Método no permitido
+    echo "405 Not Allowed";
 }
 ?>
